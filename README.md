@@ -1,2 +1,1 @@
-# FormationSvelteKit
-Formation SvelteKit débutant
+https://studio-b04.github.io/FormationSveltekit/

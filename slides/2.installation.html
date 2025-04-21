@@ -1,0 +1,97 @@
+---
+layout: center
+transition: slide-up
+---
+
+<h1 class="!text-5xl text-center">2. Installation de Sveltekit</h1>
+<h2 text-lighter text-center>Création d'un nouveau projet</h2>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Prérequis</h1>
+
+<p>Avant de commencer, assurez-vous d'avoir :</p>
+
+<ul mbs-10 mis-10>
+  <ListItem label="Node.js installé (dernière version conseillée)" />
+  <ListItem label="npm installé" />
+  <ListItem label="Un éditeur de code (Visual Studio Code recommandé)" />
+  <ListItem label='Les plugins Svelte pour VSCode. (**"Svelte for VS Code"** et **"Svelte Intellisense"**)' />
+  <ListItem label='Le lien de la documentation officielle : https://svelte.dev/docs/kit' />
+</ul>
+
+<Alert mbs-10 v-click type="idea" title="Astuce" text="Vous pouvez vérifier si Node.js et npm sont installés en exécutant les commandes <kbd>node -v</kbd> et <kbd>npm -v</kbd> dans votre terminal." />
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-left
+---
+<h1>Création du projet avec l’outil officiel</h1>
+
+<p><b>Sveltekit</b> propose un assistant interactif qui vous guide dans la configuration initiale :</p>
+
+<div class="mbs-3 mx-20 gap-x-3 grid grid-cols-[3fr_1fr] items-center" >
+
+<p v-click class="!my-0">Créez un nouveau dossier, ouvrez le terminal et tapez :</p>
+<div v-after>
+```bash {*}{lines:false}
+npx sv create .
+```
+</div>
+
+<p v-click class="!my-0">"Which template would you like?"</p>
+<div v-after>
+```bash {*}{lines:false}
+● SvelteKit minimal
+```
+</div>
+
+<p v-click class="!my-0">"Add type checking with TypeScript?"</p>
+<div v-after>
+```bash {*}{lines:false}
+● No
+```
+</div>
+
+<p v-click class="!my-0">"What would you like to add to your project?"</p>
+<div v-after>
+```bash {*}{lines:false}
+◼ prettier
+◼ prettier
+◼ sveltekit-adapter
+```
+</div>
+
+<p v-click class="!my-0">"Which SvelteKit adapter would you like to use?"</p>
+<div v-after>
+```bash {*}{lines:false}
+● static
+```
+</div>
+
+
+<p v-click class="!my-0">"Which package manager do you want to install dependencies with?"</p>
+<div v-after>
+```bash {*}{lines:false}
+● npm
+```
+</div>
+
+<p v-click class="!my-0">Et enfin, lancez le projet avec la commande :</p>
+<div v-after>
+```bash {*}{lines:false}
+npm run dev
+```
+</div>
+
+</div>
+
+<SlideFooter />

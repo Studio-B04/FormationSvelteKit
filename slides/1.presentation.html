@@ -1,0 +1,96 @@
+---
+layout: center
+transition: slide-up
+---
+
+<h1 class="!text-5xl">1. C'est quoi SvelteKit ?</h1>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1 class="mbs-30 !text-lighter text-center">🚀 En une phrase :</h1>
+
+<h3 mbs-10 text-center>
+  "<b>SvelteKit</b> est un framework qui sert à construire des applications web
+  modernes avec <b>Svelte</b>"
+</h3>
+
+<SlideFooter />
+
+--- 
+layout: default 
+transition: slide-up
+---
+
+<h1>Un peu d’histoire…</h1>
+
+<p>Quand <b>Svelte</b> a été lancé en 2016, il a très vite attiré l’attention pour son approche radicalement différente : compiler le code à la build pour générer du JavaScript natif, sans runtime encombrant.</p>
+<p v-click>Mais voilà : <b>Svelte</b>, à lui seul, ne suffisait pas pour construire une application complète. Il manquait plein de briques qu’on retrouve dans un framework plus "complet" :</p>
+<ul class="mis-10">
+  <ListItem label="Un système de routing : associer une url du navigateur à un composant" />
+  <ListItem label="Un système de préchargement de données : charger des données avant d’afficher une page" />
+  <ListItem label="Un système de gestion des erreurs : gérer les erreurs de manière centralisée" />
+  <ListItem label="Un système de déploiement : générer une version optimisée de l’application" />
+  <ListItem label="Un système de gestion des assets : optimiser les images, les polices, etc." />
+  <ListItem label="Un rendu côté server (SSR)" />
+</ul>
+<p v-click>Pour créer une vraie app avec <b>Svelte</b>, les développeurs devaient assembler eux-mêmes plusieurs outils, un peu galère, surtout pour des projets sérieux.</p>
+
+<SlideFooter />
+
+--- 
+layout: default 
+transition: slide-up
+---
+
+<h1>L’arrivée de SvelteKit</h1>
+
+<p>C’est dans ce contexte que <b>SvelteKit</b> est annoncé en 2020 comme le successeur de <b>Sapper</b>, un ancien framework maison abandonné.</p>
+
+<div mbs-20 flex gap-20 items-center justify-stretch>
+  <Alert v-click type="information" title="L’objectif de SvelteKit :" text="Offrir une expérience complète pour construire des applications web modernes avec **Svelte** sans sacrifier la simplicité."/>
+  <p v-click><b>SvelteKit</b> s’inspire clairement de ce qu’on connaît dans le monde <b>React</b> avec <b>Next.js</b>, ou <b>Vue</b> avec <b>Nuxt</b>, mais avec la légèreté et la philosophie unique de <b>Svelte</b>.</p>
+</div>
+<SlideFooter />
+
+--- 
+layout: default 
+transition: slide-left
+---
+
+<h1>En résumé</h1>
+
+<table mbs-10>
+  <tbody>
+    <tr>
+      <td font-bold>Avantage</td>
+      <td font-bold>Pourquoi c'est bien</td>
+    </tr>
+    <tr>
+        <td>⚡️ Vite + Svelte = dev ultra rapide	</td>
+        <td>Démarrage instantané, hot reload, etc.</td>
+    </tr>
+    <tr>
+        <td>📁 Routing automatique</td>
+        <td> Un fichier = une route</td>
+    </tr>
+    <tr>
+        <td>🌍 SSR / SSG / SPA au choix</td>
+        <td>Vous choisissez selon vos besoins</td>
+    </tr>
+    <tr>
+        <td>🎯 Peu de config</td>
+        <td>On code, ça marche</td>
+    </tr>
+    <tr>
+        <td>🧩 Adaptateurs déploiement</td>
+        <td>En 2 commandes, c’est en ligne !</td>
+    </tr>
+  </tbody>
+</table>
+
+<SlideFooter />

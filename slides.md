@@ -43,3 +43,37 @@ src: ./slides/accueil.html
 title: Programme
 src: ./slides/programme.html
 ---
+
+
+--- 
+title: Introduction
+src: ./slides/1.presentation.html
+---
+
+
+--- 
+title: Installation
+src: ./slides/2.installation.html
+---
+
+
+--- 
+title: Organisation
+src: ./slides/3.organisation.html
+---
+
+
+--- 
+title: Organisation
+src: ./slides/4.routes.html
+---
+
+--- 
+title: Layouts
+src: ./slides/5.layouts.html
+---
+
+--- 
+title: Deploiement
+src: ./slides/6.deploiement.html
+---

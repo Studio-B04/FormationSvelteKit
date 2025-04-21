@@ -1,0 +1,195 @@
+---
+layout: center
+transition: slide-up
+---
+
+<h1 class="!text-5xl text-center">3. Organisation des dossiers et des fichiers</h1>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Structure initiale du projet</h1>
+
+
+<div mbs-10 flex gap-20 items-center>
+
+<div>
+  <p>Vous devriez obtenir un projet organisé comme ceci :</p>
+  <p v-click mis-10>• Le dossier <b>src</b> contient les sources du projet, c'est à dire, tout ce qui constitue votre applicaiton.</p>
+  <p v-click mis-10>• Le dossier <b>static</b> contient les élément publics du projet : les images, les polices, les facicones, etc.</p>
+  <p v-click mis-10>• Le dossier <b>.sveltekit</b> est necessaire au build de l'application mais vous ne devez pas le modifier manuellement.</p>
+</div>
+
+``` {*}{lines:false}
+my-app/
+├── .sveltekit/
+│   └── ...
+├── src/
+│   ├── routes/
+│   │   └── +page.svelte
+│   ├── lib/
+│   │   └── index.js
+│   └── app.html
+├── static/
+├── svelte.config.js
+├── vite.config.js
+├── package.json
+└── ...
+```
+</div>
+
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Structure initiale du projet</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td font-bold>Dossier / fichier</td>
+      <td font-bold>Rôle</td>
+    </tr>
+    <tr>
+      <td>src/app.html</td>
+      <td>Point d'entrée de votre application</td>
+    </tr>
+    <tr>
+      <td>src/lib/</td>
+      <td>Vos composants ou utilitaires partagés (accessibles avec l'alias <b>$lib</b>)</td>
+    </tr>
+    <tr>
+      <td>static/</td>
+      <td>Dossier public (images, favicon, etc.)</td>
+    </tr>
+    <tr>
+      <td>src/routes</td>
+      <td>Dossier routes (gestion des URL de l'applciation)</td>
+    </tr>
+    <tr>
+      <td>src/routes/+page.svelte</td>
+      <td>Page d’accueil de l'application</td>
+    </tr>
+    <tr>
+      <td>svelte.config.js</td>
+      <td>Configuration de SvelteKit</td>
+    </tr>
+    <tr>
+      <td>vite.config.js</td>
+      <td>Configuration de Vite</td>
+    </tr>
+  </tbody>
+</table>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>src/app.html</h1>
+
+<div flex>
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>
+```
+</div>
+
+<Alert mbs-1 v-click type="information" title="Explication" text="Le fichier <b>app.html</b> est le point d'entrée de votre application. Il contient la structure HTML de base et les balises nécessaires pour **SvelteKit**." />
+<Alert mbs-1 v-after type="idea" title="Remarque" text="Les blocs qui commencent avec `%sveltekit.` seront remplacés lors du build de l'application" />
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>📂 lib/</h1>
+
+<p>Dans ce dossier, vous pouvez mettre tous les composants ou utilitaires que vous souhaitez partager au sein de votre application. Par exemple, vous pouvez y mettre des composants, des utilitaires, des styles, etc.</p>
+<p v-click>Vous pouvez accéder à ce dossier avec l'alias <b>$lib</b>. Par exemple, si vous avez un composant <b>Button.svelte</b> dans le dossier <b>src/lib/components/</b>, vous pouvez l'importer dans une page comme ceci :</p>
+
+<div flex v-after>
+```svelte
+<script>
+  import Button from '$lib/components/Button.svelte';
+</script>
+
+<Button />
+```
+</div>
+
+<div mbs-10 flex v-click>
+  <Alert mbs-1 v-click type="idea" title="Astuce" text="Il est possible de créer vos propres alias pour acceder à n'importe quel dossier de l'application !" />
+</div>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>📂 static/</h1>
+
+<p class="!text-pretty">Tout ce qui se trouve dans le dossier <b>static</b> sera copié tel quel dans le dossier de build de l'application et sera accessible à la racine de votre application.</p>
+<p>Vous pouvez donc y mettre des images, des polices, des fichiers CSS, etc.</p>
+
+<div flex v-after mbs-10>
+``` {*}{lines:false}
+my-app/
+  └── static/
+    ├── favicon.png               → accessible via /favicon.png
+    └── images
+          └── photo.jpg           → accessible via /images/photos.jpg
+```
+</div>
+
+<div mbs-10 flex v-click>
+  <Alert mbs-1 v-click type="idea" title="Astuce" text="Il est possible de créer vos propres alias pour acceder à n'importe quel dossier de l'application !" />
+</div>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>⚙️ Fichiers de configuration</h1>
+
+<p>Votre projet contient plusieurs fichiers de configuration, chacun à un rôle distinct :</p>
+
+<ul mbs-10 mis-10>
+  <Option v-click title="package.json" details="configuration du projet" description="scripts, dépendances, nom du projet, etc."/>
+  <Option v-click title="svelte.config.js" details="Configuration de SvelteKit" description="adaptateur de build, preprocessing, etc."/>
+  <Option v-click title="vite.config.js" details="Personnalisation du bundler" description="ajout d’alias, de plugins, etc."/>
+  <Option v-click title="eslint.config.js" details="configuration du linter" description="rêgles de mise en page et de validation des scripts."/>
+  <Option v-click title="jsconfig.js" details="configuration de l'IDE" description="polyfills, autocomplétion, etc. "/>
+</ul>
+
+<div mbs-10 flex v-click>
+  <Alert mbs-1 v-click type="idea" title="Astuce" text="Normalement vous n'aurez que très peu de modifications à faire danbs ces fichiers de configuration." />
+</div>
+
+
+<SlideFooter />

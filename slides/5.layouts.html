@@ -1,0 +1,140 @@
+---
+layout: center
+transition: slide-up
+---
+
+<h1 class="!text-5xl text-center">5. Les Layouts</h1>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les Layouts</h1>
+
+<p>On l'a vu, une URL corresponds à un composant <b>Svelte</b>. Cela signifie que chaque fois qu'on change l'URL, toute la page est rerendue. Ce n'est pas très pratique, ni très performant.</p>
+
+<p>Imaginons deux pages qui ont toutes les deux les mêmes composants Header et Footer :</p>
+
+<div flex gap-10 items-start mbs-5>
+
+<div v-click>
+<h2 class="!text-lg text-light">src/routes/+page.svelte</h2>
+```svelte
+<script>
+  import Header from './Header.svelte';
+  import Footer from './Footer.svelte';
+</script>
+
+<Header />
+<h1>Page d'accueil</h1>
+<p>Contenu de la page d'accueil</p>
+<Footer />
+```
+</div>
+
+
+
+<div v-click>
+<h2 class="!text-lg text-light">src/routes/about/+page.svelte</h2>
+```svelte
+<script>
+  import Header from './Header.svelte';
+  import Footer from './Footer.svelte';
+</script>
+
+<Header />
+<h1>Page à propos</h1>
+<p>Contenu de la page à propos</p>
+<Footer />
+```
+</div>
+
+</div>
+
+
+<div v-after mbs-3 flex>
+  <Alert type="idea" title="Astuce" text="Ici, seuls le <kbd>h1</kbd> et le <kbd>p</kbd> sont différent, c'est dommage de re rendre toute la page !"/>
+</div>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les Layouts</h1>
+
+<p>On peut alors déclarer une base commune pour ces 2 routes. On appelle ça un <b>layout</b> : </p>
+
+<div v-click mbs-5 flex items-center gap-10>
+```{*}{lines:false}
+src/
+└── routes/
+    └── +page.svelte            
+    ├── +error.svelte         → Page d'erreur
+    ├── +layout.svelte        → Layout commun
+    └── about/
+        └── +page.svelte
+```
+<div flex flex-col gap-10>
+  <Alert type="information" title="Important" text="Tout comme les pages d'erreur, les layout se transmettent aux dossiers enfants. La page <kbd>/about</kbd> héritera donc du même layout que la page d'accueil"/>
+  <Alert type="idea" title="Important" text="On peux donc créer des layout différent pour des groupes de pages différents."/>
+</div>
+</div>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-left
+---
+<h1>Les Layouts</h1>
+
+<p>Voici un exemple de layout :</p>
+
+<div mbs-5 flex items-start justify-between gap-10>
+
+<div v-click>
+<h2 class="!text-lg text-light">src/routes/+layout.svelte</h2>
+```svelte
+<script>
+  import Header from './Header.svelte';
+  import Footer from './Footer.svelte';
+</script>
+
+<Header />
+<slot />
+<Footer />
+```
+</div>
+
+
+<div v-click>
+
+<div mbe-5>
+<h2 class="!text-lg text-light">src/routes/+page.svelte</h2>
+```svelte
+<h1>Page à propos</h1>
+<p>Contenu de la page à propos</p>
+```
+</div>
+
+
+<h2 class="!text-lg text-light">src/routes/about/+page.svelte</h2>
+```svelte
+<h1>Page à propos</h1>
+<p>Contenu de la page à propos</p>
+```
+</div>
+
+</div>
+
+<div flex mbs-10 v-click>
+  <Alert type="information" title="Important" text="Le contenu des pages sera automatiquement injecté dans le <kbd>slot</kbd> du layout."/>
+  <Arrow v-bind="{ color: '#f43f5e', x1:575, y1:200, x2:200, y2:310 }"/>
+  <Arrow v-bind="{ color: '#f43f5e', x1:575, y1:300, x2:200, y2:320 }"/>
+</div>
+
+<SlideFooter />

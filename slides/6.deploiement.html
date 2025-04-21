@@ -1,0 +1,125 @@
+---
+layout: center
+transition: slide-up
+---
+
+<h1 class="!text-5xl text-center">6. Le deploiement en production</h1>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les adapters</h1>
+
+<p>Une fois votre développement terminé, vous allez vouloir deployer votre application sur votre serveur de production.</p>
+<p v-click><b>SvelteKit</b> étant agnostique, il utilise des <b>"adapters"</b> pour builder votre application sur votre environement de production.</p>
+<p v-click>Chaque adapter traduit votre projet <b>SvelteKit</b> en une version compatible avec la cible choisie (serveur <b>Node.js</b>, <b>CDN</b>, <b>Netlify</b>, <b>Vercel</b>, etc.).</p>
+
+<p v-click>Pour utiliser un adapter, il faut l'installer via npm : </p>
+
+<div flex v-after>
+```bash
+npm install --save-dev @sveltejs/adapter-netlify
+```
+</div>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les adapters</h1>
+
+<p>Un fois installé, il faut le configurer dans <kbd>svelte.config.js</kbd> :</p>
+
+
+<div flex v-click mbs-5 items-center gap-10>
+```js
+import adapter from '@sveltejs/adapter-netlify';
+
+export default {
+  kit: {
+    adapter: adapter()
+  }
+};
+```
+
+<div>
+  <p>Maintenant, lorsque la commande <kbd>npm run build</kbd> sera exécutée, la fonction adapter sera appelée.</p>
+  <p>Essayons !</p>
+</div>
+</div>
+
+<div v-click flex mbs-5>
+  <Alert type="information" title="Information" text="Il existe de nombreux adapters pour **SvelteKit**, vous pouvez les trouver sur la <a href='https://kit.svelte.dev/docs/adapters'>documentation officielle</a>" />
+</div>
+
+<div v-click flex mbs-5>
+  <Alert type="idea" title="Astuce" text="Il existe également des adapters non officiels, et il est également possible de créer son propre adapter pour des besoins très spécifiques" />
+</div>
+
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les adapters</h1>
+
+<p>Lorsque la commande <kbd>npm run build</kbd> est lancée, l'adapter comoile tous le fichiers en tenant compte de vos différents fichies de configuration, et créé un nouveau dossier <kbd>.netlify</kbd> ainsi qu'un dossier <kbd>build</kbd>.</p>
+<p>Il suffira alors de déposer le contenu du dossier <kbd>build</kbd> sur netlify !</p>
+
+<img src="/netlify.png" alt="" class="w-1/2 mbs-10 mx-auto" />
+
+
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Le CLI de Netlify</h1>
+
+<p class="!text-balance !mbs-10"><b>Netlify</b> met à disposition des outils qui vous permettrons de deployer et gerer votre projet à distance en lignes de commande. Pour installer le CLI : </p>
+
+<div flex mbs-5>
+```bash {*}{lines:false}
+npm install netlify-cli -g
+
+netlify login
+netlify init
+netlify deploy --prod
+```
+</div>
+
+
+<div v-click>
+<p class="!text-balance ">Il suffira alors de créer un nouveau script dans le <kbd>package.json</kbd> pour deployer très facilement :</p>
+
+<div flex mbs-5>
+```json {*}{lines:false}
+{
+  "scripts": {
+    "deploy": "npm run test && npm run build && netlify deploy --prod",
+  }
+}
+```
+</div>
+</div>
+
+
+<div flex mbs-15 v-click>
+  <Alert type="idea" title="Documentation" text="N'hésitez pas à consulter la documentation officielle à cette adresse : https://cli.netlify.com/" />
+</div>
+
+<div flex mbs-5 v-click>
+  <Alert type="information" title="Information" text="Il existe également un plugin pour <b>VSCode</b> qui vous permettra de gerer votre projet directement depuis l'éditeur" />
+</div>
+
+
+<SlideFooter />

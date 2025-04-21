@@ -1,0 +1,334 @@
+---
+layout: center
+transition: slide-up
+---
+
+<h1 class="!text-5xl text-center">4. Les routes</h1>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les routes</h1>
+
+<p><b>Sveltekit</b> repose entièrement sur un système de routing basé sur les fichiers. C’est simple, mais puissant :</p>
+
+<p>Le nom et la structure des fichiers dans <kbd>src/routes/</kbd> définissent les URL de votre application. Pas besoin de déclarer les routes dans un fichier de config : vous créez un fichier, c’est une route !</p>
+
+
+<div v-click flex items-center gap-10>
+<p>Chaque route doit contenir un fichier <kbd>+page.svelte</kbd>. C'est le composant qui sera rendu lorsque l'url sera appelée par le navigateur. Ici le fichier <kbd>+page.svelte</kbd> est accessible depuis la racine du projet (<b><u>http://localhost:5173</u></b>)</p>
+```{*}{lines:false}
+src/
+└── routes/
+    └── +page.svelte
+```
+</div>
+
+<div v-click flex mitems-center gap-10>
+<p>Pour créer une nouvelle route, il suffit de créer un nouveau dossier et d'y ajouter un fichier <kbd>+page.svelte</kbd>. Il sera alors accessible depuis l'url du projet (<b><u>http://localhost:5173/about</u></b>)</p>
+```{*}{lines:false}
+src/
+└── routes/
+    ├── +page.svelte
+    └── about/
+        └── +page.svelte
+```
+</div>
+
+<Alert v-click mbs-5 type="warning" title="Important !" text="Les fichiers de routes doivent impérativement commencer par <kbd>+</kbd>. Cela permet à **SvelteKit** de les identifier comme tels."/>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les routes</h1>
+
+<p>Voici un exemple de dossier routes pour un projet de site web standard : </p>
+
+<div mbs-10 flex>
+```{*}{lines:false}
+src/
+└── routes/
+    ├── +page.svelte                      /
+    └── about/
+    │   └── +page.svelte                  /about
+    └── contact/
+    │   └── +page.svelte                  /contact
+    └── informations/
+        └── mentions-legales/
+            └── +page.svelte              /informations/mentions-legales
+```
+</div>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les routes dynamiques</h1>
+
+<p>Il est possible de créer des routes dynamiques en utilisant des fichiers avec des noms entre crochets.</p>
+<p>Par exemple, si vous souhaitez créer une page de film accessible via l'url <b><u>http://localhost:5173/movies/xxxx</u></b>, il suffit de créer un dossier <kbd>[name]</kbd> dans le dossier <kbd>movies</kbd> : </p>
+
+<div v-click mbs-10 flex items-center gap-10>
+```{*}{lines:false}
+src/
+└── routes/
+    └── +page.svelte
+        └── +page.svelte
+    └── movies/
+        └── [name]/
+            └── +page.svelte              /movies/xxxx
+```
+
+<p>Toutes les routes derrière <kbd>/movies</kbd> feront référence à ce fichier :<br/>/movies/rocky<br/>/movies/avatar<br/>etc...</p>
+</div>
+
+<Alert v-after mbs-5 type="information" title="Information" text="Le nom du dossier entre crochet est appelé un **slug**, et vous être libre de le nommer comme vous souhaitez."/>
+  
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les routes dynamiques</h1>
+
+<p>Il serait alors intéressant de connaitre le nom qui a été saisi dans l'url apres <kbd>/movies</kbd> pour modifier la page en conséquence. C'est le rôle des <b>Contrôleurs</b>.</p>
+
+<p v-click>Pour cela, il faut créer un fichier <kbd>+page.js</kbd> dans le dossier <kbd>[name]</kbd>. Ce fichier contiendra la logique de votre page. Il est possible d'y définir des fonctions qui seront appelées avant le rendu de la page :</p>
+
+<div v-click mbs-10 flex items-center gap-10>
+```{*}{lines:false}
+src/
+└── routes/
+    └── +page.svelte
+        └── +page.svelte
+    └── movies/
+        └── [name]/
+            ├── +page.svelte     → Page
+            └── +page.js         → Contrôleur
+```
+<Alert v-after mbs-5 type="information" title="Information" text="On pourra alors checker l'URL avant le chargement de la page pour savoir quel est le film demandé !"/>
+</div>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les routes dynamiques</h1>
+
+
+<h2 v-click class="!text-lg text-light">+page.js</h2>
+<div v-after flex items-center gap-10 mbe-10>
+```js
+/** @type {import('./$types').PageLoad} */
+export function load(page) {
+	return { movie : page.params.name}
+}
+```
+<p>Le paramètre de la fonction <kbd>load</kbd> contient toutes les informations sur la page en cours de chargement.</p>
+</div>
+
+
+<h2 v-click class="!text-lg text-light">+page.svelte</h2>
+<div v-after flex items-center gap-10>
+```svelte
+<script>
+  const {data} = $props();
+</script>
+
+<h1>{data.movie.toUpperCase()}</h1>
+```
+<p>Le contrôleur va retourner une propriété <b>data</b> à la vue. Cette propriété contient ce qui à été retourné par la fonction <b>load</b> du contrôleur.</p>
+</div>
+
+<div flex>
+  <Alert v-click mbs-5 type="idea" title="Astuce" text="On pourra alors intéroger une base de donnée pour récupérer toutes les infos sur un film et les envoyer à la vue !"/>
+</div>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>La gestion des erreurs</h1>
+
+<p>Si vous essayez d'acceder à une route qui n'a pas été declarée, vous obtiendrez uen erreur <b>404</b>, logique !</p>
+<p>Mais si vous essayer d'acceder à une page derrière l'URL <kbd>/movies</kbd> et que cette page ne contient pas de résultat, vous devrez gérer l'erreur vous même. </p>
+
+<h2 v-click class="!text-lg text-light">+page.js</h2>
+<div v-after flex items-center gap-10>
+```js
+import { error } from '@sveltejs/kit';
+
+/** @type {import('./$types').PageLoad} */
+export async function load(page) {
+  // Récupération du film dans la base de données
+  const movie = await getMovie(page.params.name);
+
+  if (movie) return { movie }
+  else error(404, `Le film ${page.params.name} n'existe pas !`);
+}
+```
+<p>Ici, on imagine que la fonction <b>getMovie</b> va interoger l'API, si il n'y a pas de résultat, on exécute la fonction <kbd>error</kbd>.</p>
+</div>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>La gestion des erreurs</h1>
+
+<p>Il est tout à fait possible de créer une page spécifique <kbd>+error.svelte</kbd> dans le dossier routes. Ce fichier sera appelé si une erreur est lancée par le contrôleur.</p>
+
+<div v-click mbs-5 flex items-center gap-10>
+```{*}{lines:false}
+src/
+└── routes/
+    └── +page.svelte
+    │   └── +page.svelte
+    └── movies/
+        └── [name]/
+            ├── +page.svelte     → Page
+            ├── +page.js         → Contrôleur
+            └── +error.svelte    → Page d'erreur
+```
+<Alert v-after mbs-5 type="information" title="Information" text="On pourra alors checker l'URL avant le chargement de la page pour savoir quel est le film demandé !"/>
+</div>
+
+<div v-click mbs-2 flex items-center gap-10>
+```svelte
+<script>
+	import { page } from '$app/state';
+</script>
+
+<h1>{page.status}: {page.error.message}</h1>
+```
+
+<Alert v-after mbs-5 type="information" title="Information" text="On peux connaitre l'état de la page via <kbd>$app/state</kbd> de **svelte**."/>
+</div>
+
+<SlideFooter />
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les redirections</h1>
+
+<p>On peut, dans certains cas, avoir besoin de rediriger une url ou d'empecher l'accès à une route.</p>
+
+<p>Par exemple, si un utilisateur non identifié essaie d'acceder à une partie du site qui demande une authentification, on peut le rediriger vers la page de connexion : </p>
+
+<div v-click flex mbs-5>
+```js
+import { redirect } from '@sveltejs/kit';
+
+export async function load(page) {
+  // Vérification de l'utilisateur
+  const user = await checkUser();
+
+  if (!user.isLoggued) redirect(302, '/login');
+  else return { user }
+}
+```
+</div>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les paramètres d'URL</h1>
+
+<p>Il peut être pratique de passer des paramètres dans une URL. Par exemple, sur la page de résultat de recherche, on peut avoir filtres appliqués : </p>
+
+<h2 v-click class="!mbs-20 !text-lg text-light">http://localhost:5173/search?query=rocky&sort=year&rating=4</h2>
+
+<p v-after>Ici on veux récupérer les films qui correspondent à la requête "rocky", qui ont au moins 4 étoiles  et trier les résultat par année.</p>
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-up
+---
+<h1>Les paramètres d'URL</h1>
+
+<div class="mbs-10 gap-5 grid grid-cols-[3fr_1fr] items-center" >
+<p>On peut alors récupérer les paramètres d'url un a un depuis le contrôleur :</p>
+
+```js
+/** @type {import('./$types').PageLoad} */
+export function load(page) {
+  const query = page.url.searchParams.get('query');
+  const sort = page.url.searchParams.get('sort');
+  const rating = page.url.searchParams.get('rating');
+	
+  return { ... }
+}
+```
+
+<p>Ou récupérer tous les paramètres d'un coup au format JSON :</p>
+
+```js
+/** @type {import('./$types').PageLoad} */
+export function load(page) {
+  const params =  Object.fromEntries(page.url.searchParams.entries());
+  
+  return { ... }
+}
+```
+</div>
+  
+
+
+<SlideFooter />
+
+
+---
+layout: default
+transition: slide-left
+---
+<h1>Les routes API</h1>
+
+<p><b>SvelteKit</b> permet de créer des routes API directement dans <b>routes/</b> grâce aux fichiers <kbd>+server.js</kbd>.</p>
+<p>Ces fichiers contiennent la logique de votre API. Ils peuvent être utilisés pour gérer les requêtes HTTP (GET, POST, PUT, DELETE) et renvoyer des réponses au format JSON. Voici un exemple de route API qui renvoie la liste des films :</p>
+
+<h2 v-click class="!my-1 !text-lg text-light">src/routes/api/movies/latest/+server.js</h2>
+<div v-after flex >
+```js {*}{lines:false}
+export async function GET() {
+  const options = { method: 'GET', headers: { accept: 'application/json' } }
+  const latestMovies = await fetch('https://api.themoviedb.org/3/movie/latest', options)
+    .then(res => res.json())
+    .catch(err => console.error(err));
+
+  return latestMovies
+}
+```
+</div>
+
+<div flex mbs-1 v-click>
+  <Alert type="information" title="Résultat" text="La route https://localhost:5173/api/movies/latest n'affichera aucun composant mais retournera un object JSON"/>
+</div>
+
+<SlideFooter />
+

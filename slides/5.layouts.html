@@ -102,10 +102,15 @@ transition: slide-left
 <script>
   import Header from './Header.svelte';
   import Footer from './Footer.svelte';
+  let { children } = $props();
 </script>
 
 <Header />
-<slot />
+
+<main>
+	{@render children()}
+</main>
+
 <Footer />
 ```
 </div>
@@ -132,7 +137,7 @@ transition: slide-left
 </div>
 
 <div flex mbs-10 v-click>
-  <Alert type="information" title="Important" text="Le contenu des pages sera automatiquement injecté dans le <kbd>slot</kbd> du layout."/>
+  <Alert type="information" title="Important" text="Le contenu des pages sera automatiquement injecté dans le <kbd>main</kbd> du layout."/>
   <Arrow v-bind="{ color: '#f43f5e', x1:575, y1:200, x2:200, y2:310 }"/>
   <Arrow v-bind="{ color: '#f43f5e', x1:575, y1:300, x2:200, y2:320 }"/>
 </div>

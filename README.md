@@ -1,1 +1,1 @@
-https://studio-b04.github.io/FormationSveltekit/
+https://studiob04.github.io/FormationSveltekit/
